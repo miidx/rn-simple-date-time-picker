@@ -25,6 +25,6 @@
  enabledColor       | Color for the control when in enabled mode  | String    |          | `#2f2f2f`         
  disabledColor      | Color for the control when in disabled mode | String    |          | `#8C8C8C`         
  format             | Format to display selected date/time. See [moment.js format][moment-format-url]        | String    |          | `ISO 8601` format
- mode               | one of `date`, `time`, or `datetime`        | String    |          | `datetime`         
+ mode               | `date` or `datetime`                        | String    |          | `datetime`         
  selectedDate       | Set or get selected date/time value in `ISO 8601` format | string    |          |          
  onDateTimeSelected | Callback when user select a date/time       | function  |          |          
