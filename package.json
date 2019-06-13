@@ -1,6 +1,6 @@
 {
   "name": "@miidx/rn-simple-date-time-picker",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Date time picker for ios and android",
   "main": "index.js",
   "scripts": {
