@@ -121,7 +121,16 @@ export default class SimplePicker extends Component {
       this.setState(prev => ({ selectedDate: prev.tempSelectedDate }));
 
       const { tempSelectedDate } = this.state;
-      this.props.onDateTimeSelected(moment(tempSelectedDate).format());
+
+      const { mode } = this.props;
+      let format = 'YYYY-MM-DDTHH-mm-ssZ';
+      if (mode === 'date') {
+        format = 'YYYY-MM-DD';
+      } else if (mode === 'time') {
+        format = 'HH:mm:ss';
+      }
+
+      this.props.onDateTimeSelected(moment(tempSelectedDate).format(format));
       this.setState({
         showModal: false,
       });
@@ -235,7 +244,7 @@ SimplePicker.propTypes = {
   enabledColor: PropTypes.string,
   disabledColor: PropTypes.string,
   format: PropTypes.string,
-  mode: PropTypes.oneOf(['date', 'time', 'datetime']),
+  mode: PropTypes.oneOf(['date', 'datetime']),
   selectedDate: PropTypes.string,
   onDateTimeSelected: PropTypes.func,
 };
