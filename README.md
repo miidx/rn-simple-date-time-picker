@@ -5,7 +5,7 @@
 ## Usage  
 
 ```jsx
-    <SimplePicker  
+    <SimpleDateTimePicker  
         animationType="fade"
         label="Due Time"
         onDateSelected={(value) => this.setState({ dueTime: value }) }
