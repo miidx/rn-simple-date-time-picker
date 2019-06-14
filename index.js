@@ -1,3 +1,3 @@
-import CustomComponent from './src/custom-component';
+import SimpleDateTimePicker from './src/simple-date-time-picker';
 
-export default CustomComponent;
+export default SimpleDateTimePicker;
