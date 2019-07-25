@@ -123,7 +123,7 @@ export default class SimplePicker extends Component {
       const { tempSelectedDate } = this.state;
 
       const { mode } = this.props;
-      let format = 'YYYY-MM-DDTHH-mm-ssZ';
+      let format = 'YYYY-MM-DDTHH:mm:ssZ';
       if (mode === 'date') {
         format = 'YYYY-MM-DD';
       } else if (mode === 'time') {
