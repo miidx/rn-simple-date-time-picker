@@ -53,10 +53,19 @@ const styles = {
 export default class SimplePicker extends Component {
   constructor(props) {
     super(props);
+    let tempSelectedDate;
+    if(props.selectedDate) {
+      tempSelectedDate = moment(props.selectedDate).toDate();
+    } else if(props.initialDateSelection) {
+      tempSelectedDate = moment(props.initialDateSelection).toDate();
+    } else {
+      tempSelectedDate = new Date();
+    }
+    
     this.state = {
       showModal: false,
       selectedDate: undefined,
-      tempSelectedDate: props.selectedDate ? moment(props.selectedDate).toDate() : new Date(),
+      tempSelectedDate: tempSelectedDate,
     };
   }
 
@@ -65,7 +74,7 @@ export default class SimplePicker extends Component {
         if (ios) {
           this.setState({ showModal: true });
         }
-        this.setState(prev => ({ tempSelectedDate: prev.selectedDate || new Date() }));
+        this.setState(prev => ({ tempSelectedDate: prev.selectedDate || prev.tempSelectedDate || new Date() }));
 
         if (!ios) {
           if (this.props.mode === 'time') {
@@ -137,7 +146,7 @@ export default class SimplePicker extends Component {
     }
 
     onCancelPicker = () => {
-      this.setState({ showModal: false, tempSelectedDate: undefined });
+      this.setState({ showModal: false });
     }
 
     onDateValueChanged = (value) => {
@@ -246,6 +255,7 @@ SimplePicker.propTypes = {
   format: PropTypes.string,
   mode: PropTypes.oneOf(['date', 'datetime']),
   selectedDate: PropTypes.string,
+  initialDateSelection: PropTypes.string,
   onDateTimeSelected: PropTypes.func,
 };
 
@@ -261,5 +271,6 @@ SimplePicker.defaultProps = {
   format: undefined,
   mode: 'datetime',
   selectedDate: undefined,
+  initialDateSelection: undefined,
   onDateTimeSelected: () => {},
 };
