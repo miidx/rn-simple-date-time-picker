@@ -64,7 +64,6 @@ export default class SimplePicker extends Component {
     
     this.state = {
       showModal: false,
-      selectedDate: undefined,
       tempSelectedDate: tempSelectedDate,
     };
   }
@@ -74,7 +73,7 @@ export default class SimplePicker extends Component {
         if (ios) {
           this.setState({ showModal: true });
         }
-        this.setState(prev => ({ tempSelectedDate: prev.selectedDate || prev.tempSelectedDate || new Date() }));
+        this.setState(prev => ({ tempSelectedDate: this.props.selectedDate || prev.tempSelectedDate || new Date() }));
 
         if (!ios) {
           if (this.props.mode === 'time') {
@@ -127,7 +126,6 @@ export default class SimplePicker extends Component {
     }
 
     onDateSelected = () => {
-      this.setState(prev => ({ selectedDate: prev.tempSelectedDate }));
 
       const { tempSelectedDate } = this.state;
 
@@ -154,8 +152,7 @@ export default class SimplePicker extends Component {
     }
 
     renderTextField = () => {
-      const selectedDate = this.props.selectedDate || this.state.selectedDate;
-      const { format, mode } = this.props;
+      const { format, mode, selectedDate } = this.props;
       let formatStr = format;
       if (!formatStr) {
         if (mode === 'datetime') {
@@ -179,7 +176,7 @@ export default class SimplePicker extends Component {
           <TextField
             label={this.props.label}
             error={this.props.error}
-            value={selectedDate ? moment(selectedDate).format(formatStr) : undefined}
+            value={selectedDate ? moment(selectedDate).format(formatStr) : ''}
             baseColor={this.props.disabledColor}
             disabled
             suffixIconName={iconName}
@@ -191,7 +188,7 @@ export default class SimplePicker extends Component {
           <TextField
             label={this.props.label}
             error={this.props.error}
-            value={selectedDate ? moment(selectedDate).format(formatStr) : undefined}
+            value={selectedDate ? moment(selectedDate).format(formatStr) : ''}
             baseColor={this.props.enabledColor}
             disabled
             suffixIconName={iconName}
