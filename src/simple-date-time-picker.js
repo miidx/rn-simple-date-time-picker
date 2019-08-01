@@ -73,8 +73,12 @@ export default class SimplePicker extends Component {
         if (ios) {
           this.setState({ showModal: true });
         }
-        this.setState(prev => ({ tempSelectedDate: this.props.selectedDate || prev.tempSelectedDate || new Date() }));
-
+        if(this.props.selectedDate) {
+          this.setState(prev => ({ tempSelectedDate: moment(this.props.selectedDate).toDate() }));
+        } else {
+          this.setState(prev => ({ tempSelectedDate: prev.tempSelectedDate ? moment(prev.tempSelectedDate).toDate() : new Date() }));
+        }
+  
         if (!ios) {
           if (this.props.mode === 'time') {
             const initialHour = parseInt(moment(this.state.tempSelectedDate).format('H'), 10);
