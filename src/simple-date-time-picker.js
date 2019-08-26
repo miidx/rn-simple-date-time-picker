@@ -55,13 +55,12 @@ export default class SimplePicker extends Component {
     super(props);
     let tempSelectedDate;
     if(props.selectedDate) {
-      tempSelectedDate = moment(props.selectedDate).toDate();
+      tempSelectedDate = new Date(props.selectedDate);
     } else if(props.initialDateSelection) {
-      tempSelectedDate = moment(props.initialDateSelection).toDate();
+      tempSelectedDate = new Date(props.initialDateSelection);
     } else {
       tempSelectedDate = new Date();
     }
-    
     this.state = {
       showModal: false,
       tempSelectedDate: tempSelectedDate,
@@ -74,11 +73,10 @@ export default class SimplePicker extends Component {
           this.setState({ showModal: true });
         }
         if(this.props.selectedDate) {
-          this.setState(prev => ({ tempSelectedDate: moment(this.props.selectedDate).toDate() }));
+          this.setState(prev => ({ tempSelectedDate: new Date(this.props.selectedDate) }));
         } else {
-          this.setState(prev => ({ tempSelectedDate: prev.tempSelectedDate ? moment(prev.tempSelectedDate).toDate() : new Date() }));
+          this.setState(prev => ({ tempSelectedDate: prev.tempSelectedDate ? new Date(prev.tempSelectedDate) : new Date() }));
         }
-  
         if (!ios) {
           if (this.props.mode === 'time') {
             const initialHour = parseInt(moment(this.state.tempSelectedDate).format('H'), 10);
@@ -104,7 +102,7 @@ export default class SimplePicker extends Component {
             const {
               action: actionDate, year, month, day,
             } = await DatePickerAndroid.open({
-              date: moment(this.state.tempSelectedDate).toDate(),
+              date: new Date(this.state.tempSelectedDate),
             });
 
             if (actionDate !== DatePickerAndroid.dismissedAction && this.props.mode === 'datetime') {
@@ -134,7 +132,7 @@ export default class SimplePicker extends Component {
       const { tempSelectedDate } = this.state;
 
       const { mode } = this.props;
-      let format = 'YYYY-MM-DDTHH:mm:ssZ';
+      let format = 'YYYY-MM-DDTHH:mm:ss';
       if (mode === 'date') {
         format = 'YYYY-MM-DD';
       } else if (mode === 'time') {
