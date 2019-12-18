@@ -127,6 +127,12 @@ export default class SimplePicker extends Component {
       }
     }
 
+    leftPadding = (string, length, paddingChar) => {
+      const additionalInputLength = length - string.length;
+      const additionalInput = paddingChar.repeat(additionalInputLength) + string;
+      return additionalInput;
+    };
+
     onDateSelected = () => {
 
       const { tempSelectedDate } = this.state;
@@ -139,7 +145,17 @@ export default class SimplePicker extends Component {
         format = 'HH:mm:ss';
       }
 
-      this.props.onDateTimeSelected(moment(tempSelectedDate).format(format));
+      const yy = tempSelectedDate.getFullYear();
+      const mm = this.leftPadding(`${tempSelectedDate.getMonth()}`, 2, '0');
+      const dd = this.leftPadding(`${tempSelectedDate.getDate()}`, 2, '0');
+      const hh = this.leftPadding(`${tempSelectedDate.getHours()}`, 2, '0');
+      const min = this.leftPadding(`${tempSelectedDate.getMinutes()}`, 2, '0');
+      const ss = this.leftPadding(`${tempSelectedDate.getSeconds()}`, 2, '0');
+
+      // This code below is to strip timezone information
+      const dateStr = `${yy}-${mm}-${dd}T${hh}:${min}:${ss}`;
+
+      this.props.onDateTimeSelected(moment(dateStr).format(format));
       this.setState({
         showModal: false,
       });
