@@ -155,7 +155,8 @@ export default class SimplePicker extends Component {
       // This code below is to strip timezone information
       const dateStr = `${yy}-${mm}-${dd}T${hh}:${min}:${ss}`;
 
-      this.props.onDateTimeSelected(moment(dateStr).format(format));
+      const selectedDate = mode === 'date' ? moment(dateStr).format(format) : moment(tempSelectedDate).format(format);
+      this.props.onDateTimeSelected(selectedDate);
       this.setState({
         showModal: false,
       });
