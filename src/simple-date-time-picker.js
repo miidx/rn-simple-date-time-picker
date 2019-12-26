@@ -146,7 +146,7 @@ export default class SimplePicker extends Component {
       }
 
       const yy = tempSelectedDate.getFullYear();
-      const mm = this.leftPadding(`${tempSelectedDate.getMonth()}`, 2, '0');
+      const mm = this.leftPadding(`${tempSelectedDate.getMonth() + 1}`, 2, '0');
       const dd = this.leftPadding(`${tempSelectedDate.getDate()}`, 2, '0');
       const hh = this.leftPadding(`${tempSelectedDate.getHours()}`, 2, '0');
       const min = this.leftPadding(`${tempSelectedDate.getMinutes()}`, 2, '0');
